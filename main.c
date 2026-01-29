@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include "printf.h"
+#include "libft/libft.h"
+
 
 int main()
 {
-	printf("%u", 1);
+	ft_printf("hola como estas 12345 \n \t");
 	return (0);
 }
