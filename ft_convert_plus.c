@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/01/30 15:13:52 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:28:25 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_zero(int num, char c)
 {
-	while (num >= 0)
+	while (num > 0)
 	{
 		ft_putchar_fd(c, 0);
 		num--;

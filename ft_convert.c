@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:40:28 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/01/30 15:14:40 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:26:38 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	ft_printstring(va_list list, int *len, t_flags *flags)
 	}
 	else
 	{
-		ft_putstr_fd(src, 0);
 		ft_zero(flags->num, ' ');
+		ft_putstr_fd(src, 0);
 	}
 	len += i;
 	return (1);
