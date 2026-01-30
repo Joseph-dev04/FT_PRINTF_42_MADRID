@@ -6,52 +6,65 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:40:28 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/01/29 12:46:51 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/01/30 15:14:40 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "printf.h"
 
-void	ft_printstring(va_list list, int *len)
+int	ft_printstring(va_list list, int *len, t_flags *flags)
 {
 	char	*src;
 	int	i;
 
 	i = 0;
 	src = va_arg(list, char *);
-	while (src[i])
+	flags->num -= ft_strlen(src);
+	if (flags->minus)
 	{
-		ft_putchar_fd(src[i], 0);
-		i++;
+		ft_putstr_fd(src, 0);
+		i = ft_strlen(src);
+	}
+	else if (flags->num > ft_strlen(src) && flags->zero)
+	{
+		ft_zero(flags->num, '0');
+		ft_putstr_fd(src, 0);
+	}
+	else
+	{
+		ft_putstr_fd(src, 0);
+		ft_zero(flags->num, ' ');
 	}
 	len += i;
+	return (1);
 }
 
-void	ft_printchar(va_list list, int *len)
+int	ft_printchar(va_list list, int *len, t_flags *flags)
 {
 	ft_putchar_fd(va_arg(list, int), 0);
 	len++;
+	return (1);
 }
-void	ft_printpointer(va_list list, int *len)
+int	ft_printpointer(va_list list, int *len, t_flags *flags)
 {
 	void	*p;
 	char	*str;
 	
 	p = va_arg(list, void *);
-	ft_putstr_fd("0x0",0);
+	ft_putstr_fd("0x",0);
 	len += 3;
-	str = (char *)p + 3;
+	str = (char *)p + 2;
 	while (*str)
 	{
 		ft_putchar_fd(*str,0);
 		str++;
 		len++;
 	}
-	
+	return (1);
 }
 
-void	ft_printinteger(va_list list, int *len)
+int	ft_printinteger(va_list list, int *len, t_flags *flags)
 {
 	int	i;
 	char	*str;
@@ -61,9 +74,10 @@ void	ft_printinteger(va_list list, int *len)
 	len += ft_strlen(str);
 	ft_putstr_fd(str,0);
 	free(str);
+	return (1);
 }
 
-void	ft_printunsigned(va_list list, int *len)
+int	ft_printunsigned(va_list list, int *len, t_flags *flags)
 {
 	int i;
 	char	*str;
@@ -73,6 +87,7 @@ void	ft_printunsigned(va_list list, int *len)
 	len += ft_strlen(str);
 	ft_putstr_fd(str,0);
 	free(str);
+	return (1);
 }
 
 int	ft_hexa(char *str, int i)
@@ -94,7 +109,7 @@ int	ft_hexa(char *str, int i)
 	return (j);
 }
 
-void	ft_printhexa(va_list list, char c)
+int	ft_printhexa(va_list list, char c, t_flags *flags)
 {
 	int	num;
 	char *str;
@@ -107,8 +122,8 @@ void	ft_printhexa(va_list list, char c)
 	}
 	else
 	{
-		str = "012346789ABCDEF";
+		str = "0123456789ABCDEF";
 		ft_hexa(str, num);
 	}
-	
+	return (1);
 }
