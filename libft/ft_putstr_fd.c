@@ -1,47 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/20 14:10:41 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/22 14:42:18 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+void	ft_putstr_fd(char *s, int fd)
 {
-	while (num > 0)
+	size_t	i;
+
+	i = 0;
+	while (i < ft_strlen(s))
 	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+		write(fd, &s[i], 1);
+		i++;
+	}
 }
 /*
-int	ft_point(char *str)
+#include <fcntl.h>
+int main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+	int fd;
+	fd = open("doc.txt", O_APPEND | O_CREAT | O_RDWR,0644);
+	if (fd < 0)
+	{
+		printf("error al abrir el archivo");
+	}
+	ft_putstr_fd("hello world",fd);
+	return 0;
 }*/

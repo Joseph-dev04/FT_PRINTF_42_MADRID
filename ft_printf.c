@@ -6,13 +6,11 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:39:43 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/01/30 12:36:38 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/02 15:30:53 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "printf.h"
-
+#include "ft_printf.h"
 void	ft_porcentage(char const **str,int *i)
 {
 	ft_putchar_fd('%', 0);
@@ -42,6 +40,7 @@ int	ft_printf(char	const *str, ...)
 		str++;
 		i++;
 	}
+	va_end(print);
 	return (i);
 }
 

@@ -1,47 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/12 11:44:21 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/22 14:41:16 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+void	*ft_memset(void *str, int c, size_t n)
 {
-	while (num > 0)
+	char	*dst;
+	size_t	i;
+
+	i = 0;
+	dst = (char *)str;
+	while (i < n)
 	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+		dst[i] = c;
+		i++;
+	}
+	return (str);
 }
 /*
-int	ft_point(char *str)
+#include <string.h>
+int main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+	char	a[10] = "123456789";
+	memset(a,'x',8);
+		printf("%s\n", a);
+	ft_memset(a,'z',8);
+		printf("%s\n", a);
+		return 0;
 }*/

@@ -1,47 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/22 11:08:57 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/22 14:00:05 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+int	ft_lstsize(t_list *lst)
 {
-	while (num > 0)
+	t_list	*aux;
+	int		i;
+
+	i = 0;
+	if (!lst)
+		return (i);
+	aux = lst;
+	while (aux)
 	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+		i++;
+		aux = aux->next;
+	}
+	return (i);
 }
 /*
-int	ft_point(char *str)
+int main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+	char a[2] = "0";
+	char b[2] = "1";
+	char c[2] = "2";
+	char d[2] = "3";
+	t_list *p = ft_lstnew(a);
+	p->next = ft_lstnew(b);
+	p->next->next = ft_lstnew(c);
+	p->next->next->next = ft_lstnew(d);
+	printf("%i\n", ft_lstsize(p));
+	return 0;
 }*/

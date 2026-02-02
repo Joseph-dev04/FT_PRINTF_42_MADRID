@@ -1,47 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/12 11:26:36 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/22 13:49:14 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+int	ft_isalnum(int c)
 {
-	while (num > 0)
-	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (1);
+	return (0);
 }
 /*
-int	ft_point(char *str)
+#include <ctype.h>
+int main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+		printf("%i\n", isalnum(32));
+		printf("%i\n", ft_isalnum(32));
+		return 0;
 }*/

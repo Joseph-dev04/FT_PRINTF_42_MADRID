@@ -1,47 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/16 14:22:58 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/23 15:02:21 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+char	*ft_strdup(const char *s)
 {
-	while (num > 0)
+	size_t	len;
+	char	*a;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(s);
+	a = malloc(sizeof(char) * len + 1);
+	if (!a)
+		return (NULL);
+	while (i < len)
 	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+		a[i] = s[i];
+		i++;
+	}
+	a[i] = '\0';
+	return (a);
 }
 /*
-int	ft_point(char *str)
+#include <string.h>
+int main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+	char *a = "hola";
+	char *b = "hola";
+	printf("%p %p\n", a, b);
+	printf("%p\n",strdup(a));
+	printf("%p\n",ft_strdup(b));
+	return (0);
 }*/

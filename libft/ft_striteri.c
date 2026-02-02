@@ -1,47 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/20 13:06:28 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/22 14:07:19 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	while (num > 0)
+	unsigned int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+		f(i, &s[i]);
+		i++;
+	}
 }
 /*
-int	ft_point(char *str)
+void pepe(unsigned int i, char *c)
 {
-	
+	if (i % 2 == 0)
+		*c = '1';
 }
 
-int	ft_plus()
+int main()
 {
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+	char a[10] = "abcdefg";
+	ft_striteri(a, pepe);
+	printf("%s\n", a);
+	return (0);
 }*/

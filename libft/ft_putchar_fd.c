@@ -1,47 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/20 13:55:09 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/22 14:04:38 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+void	ft_putchar_fd(char c, int fd)
 {
-	while (num > 0)
-	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+	write (fd, &c, 1);
 }
 /*
-int	ft_point(char *str)
+#include <fcntl.h>
+int main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+	int fd;
+	fd = open("doc.txt",O_RDWR, O_APPEND, O_CREAT);
+	if (fd < 0)
+	{
+		printf("error en lectura");
+	}
+	ft_putchar_fd('d',fd);
+	return 0;
 }*/

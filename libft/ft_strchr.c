@@ -1,47 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/15 09:13:45 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/23 14:06:38 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_zero(int num, char c)
+char	*ft_strchr(const char *s, int c)
 {
-	while (num > 0)
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = (char *)s;
+	while (str[i])
 	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+		if ((unsigned char)str[i] == (unsigned char)c)
+			return (str + i);
+		i++;
+	}
+	if ((unsigned char)str[i] != (unsigned char)c)
+		return (NULL);
+	return (str + i);
 }
 /*
-int	ft_point(char *str)
+#include <string.h>
+int	main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+	char a[10] = "123456789";
+	printf("%s\n", strchr(a,'5'));
+	printf("%s", ft_strchr(a,'5'));
+	return 0;
 }*/

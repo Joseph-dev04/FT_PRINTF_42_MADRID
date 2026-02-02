@@ -6,13 +6,11 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:44:47 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/01/30 15:11:13 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/02 15:30:50 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "printf.h"
-#include <stdio.h>
+#include "ft_printf.h"
 void	ft_detec_flags(char const *str, t_flags *flags)
 {
 	if (*str == '-')

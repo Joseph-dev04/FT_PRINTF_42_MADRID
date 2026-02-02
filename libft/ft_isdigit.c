@@ -1,47 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   isdigit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/02 15:30:30 by jopajuel         ###   ########.fr       */
+/*   Created: 2026/01/12 11:12:05 by jopajuel          #+#    #+#             */
+/*   Updated: 2026/01/15 09:54:06 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-void	ft_zero(int num, char c)
+int	ft_isdigit(int c)
 {
-	while (num > 0)
-	{
-		ft_putchar_fd(c, 0);
-		num--;
-	}	
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }
 /*
-int	ft_point(char *str)
+#include <stdio.h>
+int main()
 {
-	
-}
-
-int	ft_plus()
-{
-	
-}
-
-void	ft_minus()
-{
-	
-}
-
-int	ft_tab(char *str, va_list list, int *i, int j)
-{
-	ft_detec_flags_plus(str, i , list , j);
-}
-
-int	ft_hash()
-{
-	
+		printf("%i\n", isdigit('2'));
+		printf("%i\n", ft_isdigit('2'));
+		return 0;
 }*/
