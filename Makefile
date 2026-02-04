@@ -6,7 +6,7 @@
 #    By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/02 14:49:06 by jopajuel          #+#    #+#              #
-#    Updated: 2026/02/02 15:28:56 by jopajuel         ###   ########.fr        #
+#    Updated: 2026/02/04 13:59:07 by jopajuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ LIBFT_DIR = ./libft
 
 LIBFT = ${LIBFT_DIR}/libft.a
 
-SRC = ft_convert_plus.c ft_convert.c ft_detec_arguments.c ft_detec_flags.c ft_printf.c
+SRC = ft_convert_plus.c ft_convert.c ft_detec_arguments.c ft_detec_flags.c ft_printf.c\
+		ft_convert_flags.c ft_utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -45,4 +46,5 @@ clean	:
 fclean	: clean
 		 @rm -f ${NAME}
 
+bonus: all
 re		: fclean all

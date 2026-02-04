@@ -6,11 +6,12 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:37:28 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/01/29 15:08:52 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/04 11:48:10 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static t_list	*ft_lstlast_local(t_list *lst)
 {
 	while (lst->next)
@@ -21,6 +22,7 @@ static t_list	*ft_lstlast_local(t_list *lst)
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last;
+
 	if (!lst || !new)
 		return ;
 	if (*lst == NULL)
@@ -31,7 +33,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last = *lst;
 	last = ft_lstlast_local(last);
 	last->next = new;
-	
 }
 /*
 void	ft_lstadd_back(t_list **lst, t_list *new)
