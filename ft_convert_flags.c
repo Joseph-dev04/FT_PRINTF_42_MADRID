@@ -6,30 +6,98 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 11:28:47 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 12:05:11 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/04 18:07:12 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>
 void	ft_flags_caracters(t_flags *flags, char *src, int *i)
 {
 	if (flags->minus)
 	{
-		ft_putstr_fd(src, 1);
-		*i = ft_strlen(src);
+		if (!src)
+		{
+			ft_putstr_fd("(null)", 1);
+			(*i) += 6;
+		}
+		else
+		{
+			if (flags->num_dot && flags->num_dot <= (int)ft_strlen(src))
+			{
+				while (flags->num_dot--)
+				{
+					ft_putchar_fd(src[flags->iter++], 1);
+					(*i)++;
+				}
+			}
+			else
+			{
+				(*i) += ft_strlen(src);
+				ft_putstr_fd(src, 1);
+			}
+		}
 		if (flags->zero == 0)
 			ft_zero(flags->num, ' ', i);
 	}
-	else if (flags->num > (int)ft_strlen(src) && flags->zero)
+	else if (flags->num  && flags->zero)
 	{
 		ft_zero(flags->num, '0', i);
-		ft_putstr_fd(src, 1);
+		if (!src)
+		{
+			ft_putstr_fd("(null)", 1);
+			(*i) += 6;
+		}
+		else
+			ft_putstr_fd(src, 1);
+	}
+	else if (flags->point)
+	{
+		if (!src)
+		{
+			//printf("f%i %if", flags->num, flags->num_dot);
+			if (flags->num_dot && flags->num_dot >= 6)
+			{
+				ft_putstr_fd("(null)", 1);
+				(*i) += 6;
+			}
+			ft_putstr_fd("", 1);
+		}
+		else
+		{
+			if (flags->num)
+			{
+				ft_zero(flags->num, ' ', i);
+			}
+			if (flags->num_dot <= (int)ft_strlen(src))
+			{
+				while (flags->num_dot--)
+				{
+					ft_putchar_fd(src[flags->iter++], 1);
+					(*i)++;
+				}
+			}
+			else
+			{
+				ft_putstr_fd(src, 1);
+					(*i) += ft_strlen(src);
+			}
+		}
 	}
 	else
 	{
 		ft_zero(flags->num, ' ', i);
-		ft_putstr_fd(src, 1);
+		if (!src)
+		{
+			ft_putstr_fd("(null)", 1);
+			(*i) += 6;
+		}
+		else
+		{
+			//if (flags->num < (int)ft_strlen(src))
+			(*i) += ft_strlen(src);
+			ft_putstr_fd(src, 1);
+		}
 	}
 }
 

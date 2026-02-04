@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:44:47 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 11:16:01 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:54:03 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_detec_flags(char const *str, t_flags *flags)
 {
 	if (*str == '-')
 		flags->minus = 1;
-	else if (flags->minus == 0 && *str == '0' && !flags->num)
+	else if (flags->minus == 0 && *str == '0' && !flags->num && !flags->point)
 		flags->zero = 1;
 	else if (*str == '.')
 		flags->point = 1;

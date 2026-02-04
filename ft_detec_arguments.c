@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:43:13 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 11:46:33 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:38:39 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ int	ft_detec_plus(char const *str, int *i, va_list list, t_flags *flags)
 	else if (*str == 'u')
 		return (ft_printunsigned(list, i, flags));
 	else if (*str == 'x' || *str == 'X')
-		return (ft_printhexa(list, *str, i,  flags));
+		return (ft_printhexa(list, *str, i, flags));
+	else if (*str && *str == '%')
+	{
+		ft_putchar_fd('%', 1);
+		(*i)++;
+		return (-1);
+	}
 	return (0);
 }
 
@@ -38,6 +44,7 @@ void	ft_init_struct(t_flags *flags)
 	flags->plus = 0;
 	flags->zero = 0;
 	flags->point = 0;
+	flags->iter = 0;
 }
 /*
 void	ft_show_struct(t_flags *flags)

@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:40:28 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 11:40:20 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/04 18:23:57 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,36 @@
 int	ft_printstring(va_list list, int *len, t_flags *flags)
 {
 	char	*src;
-	int		i;
 
-	i = 0;
 	src = va_arg(list, char *);
-	if (src == NULL)
+	if (!src)
 	{
-		ft_putstr_fd("(null)", 1);
-		(*len) += 6;
+		if ((flags->num && flags->point) && !flags->num_dot)
+		{
+			ft_zero(flags->num, ' ', len);
+			return (1);
+		}
+		flags->num -= 6;
+		ft_flags_caracters(flags, src, len);
 		return (1);
 	}
-	flags->num -= ft_strlen(src);
-	ft_flags_caracters(flags, src, &i);
-	(*len) += ft_strlen(src);
+	if ((!flags->minus && flags->num_dot ) && flags->num_dot < (int)ft_strlen(src))
+	{
+		flags->num -= flags->num_dot;
+	}
+	else if ((flags->minus && flags->num_dot ) && flags->num_dot < (int)ft_strlen(src))
+	{
+		flags->num -= flags->num_dot;
+	}
+	else if ((flags->num && flags->point) && !flags->num_dot)
+	{
+		ft_zero(flags->num, ' ', len);
+		return (1);
+	}
+	else
+		flags->num -= ft_strlen(src);
+	ft_flags_caracters(flags, src, len);
+	//(*len) += ft_strlen(src);
 	return (1);
 }
 

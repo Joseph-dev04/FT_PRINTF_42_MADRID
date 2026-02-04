@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 12:23:25 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 14:02:34 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/04 16:38:24 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_flags
 	int	num;
 	int	num_dot;
 	int	zero;
+	int iter;
 }	t_flags;
 
 int		ft_printf(char	const *str, ...);
@@ -53,4 +54,6 @@ void	ft_flags_hexa(t_flags *flags, unsigned int i, char *str, int *len);
 char	*ft_utoa(unsigned int n);
 void	ft_check_num(char **str, int len);
 int		ft_printhexa(va_list list, char c, int *i, t_flags *flags);
+
+void	ft_init_struct(t_flags *flags);
 #endif
