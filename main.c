@@ -1,7 +1,7 @@
 #include "ft_printf.h"
 #include <stddef.h>
 #include <stdio.h>
-//633 305
+//714 224
 int main()
 {
 	int a = 10;
@@ -14,11 +14,11 @@ int main()
 		printf("%p hola \"original\"\n", p);
 	}*/
 	//ft_printf("%s %c %i %x %X ", "hola", 'd', 10, 20, 10);
-	a = ft_printf("%8.3i", 8375);
+	a = ft_printf("%8.3u", 8375);
 	
 	   printf("%i\n", a);
 
-	   a = printf("%8.3i", 8375);
+	   a = printf("%8.3u", 8375);
 	
 	   printf("%i", a);
 	return (0);

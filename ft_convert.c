@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:40:28 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 18:23:57 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:05:52 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int	ft_printinteger(va_list list, int *len, t_flags *flags)
 	if (flags->plus && i >= 0)
 		lenstr++;
 	(*len) += lenstr;
-	flags->num -= lenstr;
+	if (i != 0)
+		flags->num -= lenstr;
 	if ((flags->plus && i >= 0) && (flags->num == 0 || flags->minus))
 		ft_putchar_fd('+', 0);
 	ft_flags_int(flags, str, len, i);
@@ -131,7 +132,8 @@ int	ft_printunsigned(va_list list, int *len, t_flags *flags)
 	i = va_arg(list, unsigned int);
 	str = ft_utoa(i);
 	(*len) += ft_strlen(str);
-	flags->num -= ft_strlen(str);
+	if (flags->num)
+		flags->num -= ft_strlen(str);
 	ft_flags_unint(flags, str, len, i);
 	free(str);
 	return (1);
