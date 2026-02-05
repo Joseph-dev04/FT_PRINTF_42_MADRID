@@ -24,9 +24,6 @@ void	ft_zero(int num, char c, int *i)
 
 void	ft_hexa(char *str, unsigned int i, int *len)
 {
-	int	j;
-
-	j = 0;
 	if (i < 16)
 	{
 		(*len)++;

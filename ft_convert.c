@@ -24,6 +24,26 @@ int	ft_printstring(va_list list, int *len, t_flags *flags)
 			ft_zero(flags->num, ' ', len);
 			return (1);
 		}
+		else if ((flags->num && flags->point) && (flags->num_dot < 6 && flags->num > flags->num_dot))
+		{
+			ft_zero(flags->num, ' ', len);
+			return (1);
+		}
+		else if ((flags->num && flags->point) && (flags->num_dot >=6 && flags->num > flags->num_dot))
+		{
+			flags->num -= 6;
+			if (flags->minus)
+			{
+				ft_putstr_fd("(null)", 1);
+				ft_zero(flags->num, ' ', len);
+			}else
+			{
+				ft_zero(flags->num, ' ', len);
+				ft_putstr_fd("(null)", 1);
+			}
+			(*len) += 6;
+			return (1);
+		}
 		flags->num -= 6;
 		ft_flags_caracters(flags, src, len);
 		return (1);
@@ -39,6 +59,10 @@ int	ft_printstring(va_list list, int *len, t_flags *flags)
 	else if ((flags->num && flags->point) && !flags->num_dot)
 	{
 		ft_zero(flags->num, ' ', len);
+		return (1);
+	}
+	else if ((flags->point && flags->minus) && (flags->num_dot == 0 && flags->num == flags->num_dot))
+	{
 		return (1);
 	}
 	else

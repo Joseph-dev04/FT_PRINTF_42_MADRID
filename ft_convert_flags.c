@@ -124,7 +124,7 @@ void	ft_flags_trings(t_flags *flags, char c, int *i)
 
 void	ft_flags_int(t_flags *flags, char *str, int *i, int len)
 {
-	ft_check_num(&str, len);
+	//ft_check_num(&str, len);
 	if (flags->minus)
 	{
 		ft_putstr_fd(str, 1);
@@ -133,13 +133,50 @@ void	ft_flags_int(t_flags *flags, char *str, int *i, int len)
 	}
 	else if (flags->num >= (int)ft_strlen(str) && flags->zero)
 	{
+		ft_check_num(&str, len);
 		if (flags->plus)
 			ft_putchar_fd('+', 1);
 		ft_zero(flags->num, '0', i);
 		ft_putstr_fd(str, 1);
 	}
+	else if (flags->point && flags->num_dot < flags->num)
+	{
+		if (len < 0)
+		{
+			str++;
+			ft_zero((flags->num - (flags->num_dot - (int)ft_strlen(str))), ' ', i);
+			ft_putchar_fd('-', 1);
+			ft_zero((flags->num_dot - (int)ft_strlen(str)), '0', i);
+			ft_putstr_fd(str, 1);
+		}
+		else
+		{
+			if (flags->num_dot < (int)ft_strlen(str))
+				ft_zero((flags->num - ((int)ft_strlen(str) - flags->num_dot)), ' ', i);
+			else
+				ft_zero((flags->num - (flags->num_dot - (int)ft_strlen(str))), ' ', i);
+			ft_zero((flags->num_dot - (int)ft_strlen(str)), '0', i);
+			ft_putstr_fd(str, 1);
+		}
+	}
+	else if (flags->point && flags->num_dot > (int)ft_strlen(str))
+	{
+		if (len < 0)
+		{
+			ft_check_num(&str, len);
+			ft_zero((flags->num_dot - (int)ft_strlen(str)), '0', i);
+			ft_putstr_fd(str, 1);
+		}
+		else
+		{
+			ft_zero((flags->num_dot - (int)ft_strlen(str)), '0', i);
+			ft_putstr_fd(str, 1);
+		}
+	}
+	
 	else
 	{
+		//ft_check_num(&str, len);
 		ft_zero(flags->num, ' ', i);
 		if (flags->plus && len >= 0)
 			ft_putchar_fd('+', 1);
