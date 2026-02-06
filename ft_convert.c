@@ -118,7 +118,7 @@ int	ft_printinteger(va_list list, int *len, t_flags *flags)
 	if (i != 0)
 		flags->num -= lenstr;
 	if ((flags->plus && i >= 0) && (flags->num == 0 || flags->minus))
-		ft_putchar_fd('+', 0);
+		ft_putchar_fd('+', 1);
 	ft_flags_int(flags, str, len, i);
 	free(str);
 	return (1);

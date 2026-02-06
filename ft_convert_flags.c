@@ -301,10 +301,33 @@ void	ft_flags_unint(t_flags *flags, char *str, int *i, int len)
 {
 	if (flags->minus)
 	{
-		ft_putstr_fd(str, 1);
-		*i = 1;
-		if (flags->zero == 0)
-			ft_zero(flags->num, ' ', i);
+		if (flags->num > flags->num_dot && flags->num_dot > (int)ft_strlen(str))
+		{
+			ft_zero(flags->num_dot - (int)ft_strlen(str), '0', i);
+			ft_putstr_fd(str, 1);
+			ft_zero(flags->num - (flags->num_dot - (int)ft_strlen(str)), ' ', i);
+		}
+		else if (flags->num < flags->num_dot && flags->num_dot > (int)ft_strlen(str))
+		{
+			ft_zero(flags->num_dot - (int)ft_strlen(str), '0', i);
+			ft_putstr_fd(str, 1);
+		}
+		else
+		{
+			if (len == 0 && flags->point)
+			{
+				flags->num++;
+				ft_zero(flags->num, ' ', i);
+				(*i)--;
+
+			}else
+			{
+				ft_putstr_fd(str, 1);
+				*i = 1;
+				if (flags->zero == 0)
+					ft_zero(flags->num, ' ', i);
+			}
+		}
 	}
 	else if (flags->point)
 	{
@@ -318,9 +341,19 @@ void	ft_flags_unint(t_flags *flags, char *str, int *i, int len)
 			}
 			else if (flags->num > flags->num_dot && flags->num_dot < (int)ft_strlen(str))
 			{
-				ft_zero(flags->num, ' ', i);
-				ft_zero(flags->num_dot - (int)ft_strlen(str), '0', i);
-				ft_putstr_fd(str, 1);
+				if (len == 0)
+				{
+					flags->num++;
+					ft_zero(flags->num, ' ', i);
+					ft_zero(flags->num_dot, '0', i);
+					(*i)--;
+				}
+				else
+				{
+					ft_zero(flags->num, ' ', i);
+					ft_zero(flags->num_dot - (int)ft_strlen(str), '0', i);
+					ft_putstr_fd(str, 1);
+				}
 			}
 			else if (flags->num < flags->num_dot && flags->num_dot > (int)ft_strlen(str))
 			{
@@ -328,7 +361,9 @@ void	ft_flags_unint(t_flags *flags, char *str, int *i, int len)
 				ft_putstr_fd(str, 1);
 			}
 			else if (flags->num == (flags->num_dot - (int)ft_strlen(str)) && flags->num_dot < (int)ft_strlen(str))
+			{
 				ft_putstr_fd(str, 1);
+			}
 		}
 		else if (flags->num_dot > (int)ft_strlen(str))
 		{
@@ -337,7 +372,11 @@ void	ft_flags_unint(t_flags *flags, char *str, int *i, int len)
 		}
 		else if (flags->num_dot <= (int)ft_strlen(str))
 		{
-			ft_putstr_fd(str, 1);
+			if (len == 0)
+			{
+				(*i)--;
+			}else
+				ft_putstr_fd(str, 1);
 		}
 	}
 	else if (flags->num >= (int)ft_strlen(str) && flags->zero)
@@ -362,22 +401,122 @@ void	ft_flags_hexa(t_flags *flags, unsigned int i, char *str, int *len)
 	{
 		if (flags->hash)
 			ft_putstr_fd("0x", 1);
-		ft_hexa(str, i, len);
-		if (flags->zero == 0)
+		if (flags->num > flags->num_dot && flags->num_dot > ft_lenhexa(i))
+		{
+			if (i == 0)
+			{
+				ft_zero(flags->num_dot - ft_lenhexa(i), '0', len);
+				ft_zero(flags->num - (flags->num_dot - ft_lenhexa(i)), ' ', len);
+			}
+			else
+			{
+				ft_zero(flags->num_dot - ft_lenhexa(i), '0', len);
+				ft_hexa(str, i, len);
+				ft_zero(flags->num - (flags->num_dot - ft_lenhexa(i)), ' ', len);
+			}
+		}
+		else if (flags->num < flags->num_dot && flags->num_dot > ft_lenhexa(i))
+		{
+			ft_zero(flags->num_dot - ft_lenhexa(i), '0', len);
+			ft_hexa(str, i, len);
+		}
+		else if (flags->num > flags->num_dot && flags->num_dot == ft_lenhexa(i))
+		{
+			if (i == 0)
+			{
+				if (!flags->point)
+				{
+					ft_hexa(str, i, len);
+					flags->num--;
+					ft_zero(flags->num, ' ', len);
+				}
+				else
+					ft_zero(flags->num, ' ', len);
+			}else{
 			ft_zero(flags->num, ' ', len);
+			}
+		}
+		else if (flags->zero == 0)
+		{
+			ft_hexa(str, i, len);
+			if (i == 0)
+				flags->num--;
+			ft_zero(flags->num, ' ', len);
+		}
+	}
+	else if(flags->point)
+	{
+		if (flags->num_dot > ft_lenhexa(i) && flags->num_dot > flags->num)
+		{
+			if (i == 0)
+			{
+				ft_zero(flags->num_dot, '0', len);
+			}
+			else
+			{
+				ft_zero(flags->num_dot - ft_lenhexa(i), '0', len);
+				ft_hexa(str, i, len);
+			}
+		}
+		else if (flags->num > flags->num_dot)
+		{
+			if (i == 0)
+			{
+				ft_zero(flags->num - flags->num_dot , ' ', len);
+				ft_zero(flags->num_dot, '0', len);
+			}
+			else if (flags->num_dot < ft_lenhexa(i))
+			{
+				ft_zero(flags->num, ' ', len);
+				ft_hexa(str, i, len);
+			}
+			else
+			{
+				ft_zero(flags->num - (flags->num_dot - ft_lenhexa(i)), ' ', len);
+				ft_zero(flags->num_dot - ft_lenhexa(i), '0', len);
+				ft_hexa(str, i, len);
+			}
+		}
+		else
+		{
+			if (i == 0)
+			{
+				ft_zero(flags->num_dot, '0', len);
+			}
+			else
+			{
+				ft_hexa(str, i, len);
+			}
+		}
 	}
 	else if (flags->zero)
 	{
-		if (flags->hash)
-			ft_putstr_fd("0x", 1);
-		ft_zero(flags->num, '0', len);
-		ft_hexa(str, i, len);
+		if (i == 0)
+		{
+			ft_zero(flags->num, '0', len);
+		}
+		else
+		{
+			if (flags->hash)
+				ft_putstr_fd("0x", 1);
+			ft_zero(flags->num, '0', len);
+			ft_hexa(str, i, len);
+		}
 	}
 	else
 	{
-		ft_zero(flags->num, ' ', len);
-		if (flags->hash)
-			ft_putstr_fd("0x", 1);
-		ft_hexa(str, i, len);
+		if (flags->num && i == 0)
+		{
+				flags->num--;
+				ft_zero(flags->num, ' ', len);
+				ft_hexa(str, i, len);
+		}
+		else
+		{
+			ft_zero(flags->num, ' ', len);
+			if (flags->hash)
+				ft_putstr_fd("0x", 1);
+			ft_hexa(str, i, len);
+		}
 	}
 }
