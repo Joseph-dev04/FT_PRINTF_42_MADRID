@@ -6,7 +6,7 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:40:28 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/05 12:05:52 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:30:49 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,112 @@ int	ft_printchar(va_list list, int *len, t_flags *flags)
 	char	c;
 
 	c = va_arg(list, int);
-	flags->num -= 1;
 	ft_flags_trings(flags, c, len);
-	(*len)++;
+	//(*len)++;
 	return (1);
 }
+
+int	ft_lenpoint(unsigned long long num)
+{
+	int	i;
+
+	i = 0;
+	while (num)
+	{
+		num /= 16;
+		i++;
+	}
+	return (i);
+}
+#include <stdio.h>
+void	ft_flags_pointer(t_flags *flags, unsigned long long i, char *str, int *len)
+{
+	if (flags->minus)
+	{
+		ft_putstr_fd("0x", 1);
+		if (flags->num > flags->num_dot && flags->num_dot > ft_lenpoint(i))
+		{
+
+			ft_zero(flags->num_dot - ft_lenpoint(i), '0', len);
+			ft_long(str, i, len);
+			ft_zero(flags->num - (flags->num_dot - ft_lenpoint(i)), ' ', len);
+		}
+		else if (flags->num < flags->num_dot && flags->num_dot > ft_lenpoint(i))
+		{
+			ft_zero(flags->num_dot - ft_lenpoint(i), '0', len);
+			ft_long(str, i, len);
+		}
+		else if (flags->num > flags->num_dot && flags->num_dot == ft_lenpoint(i))
+		{
+			ft_zero(flags->num, ' ', len);
+		}
+		else if (flags->zero == 0)
+		{
+			ft_long(str, i, len);
+			if (i == 0)
+				flags->num--;
+			ft_zero(flags->num - (ft_lenpoint(i) + 2), ' ', len);
+		}
+	}
+	else if(flags->point)
+	{
+		if (flags->num_dot > ft_lenpoint(i) && flags->num_dot > flags->num)
+		{
+
+			ft_zero(flags->num_dot - ft_lenpoint(i), '0', len);
+			ft_long(str, i, len);
+		
+		}
+		else if (flags->num > flags->num_dot)
+		{
+			if (flags->num_dot < ft_lenpoint(i))
+			{
+				ft_zero(flags->num, ' ', len);
+				ft_long(str, i, len);
+			}
+			else
+			{
+				ft_zero(flags->num - (flags->num_dot - ft_lenpoint(i)), ' ', len);
+				ft_zero(flags->num_dot - ft_lenhexa(i), '0', len);
+				ft_long(str, i, len);
+			}
+		}
+		else
+		{
+			ft_putstr_fd("0x", 1);
+			ft_long(str, i, len);
+		}
+	}
+	else if (flags->zero)
+	{
+		if (i == 0)
+		{
+			ft_zero(flags->num, '0', len);
+		}
+		else
+		{
+			ft_zero(flags->num, '0', len);
+			ft_long(str, i, len);
+		}
+	}
+	else
+	{
+		if (flags->num)
+		{
+			//printf("*%i*",flags->num);
+				ft_zero(flags->num - (ft_lenpoint(i) + 2), ' ', len);
+				ft_putstr_fd("0x", 1);
+				ft_long(str, i, len);
+		}
+		else
+		{
+			ft_zero(flags->num, ' ', len);
+			ft_putstr_fd("0x", 1);
+			ft_long(str, i, len);
+		}
+	}
+}
+
 
 int	ft_printpointer(va_list list, int *len, t_flags *flags)
 {
@@ -91,16 +192,27 @@ int	ft_printpointer(va_list list, int *len, t_flags *flags)
 	p = va_arg(list, void *);
 	if (!p)
 	{
+		if (flags->minus)
+		{
+			ft_putstr_fd("(nil)", 1);
+			(*len) += 5;
+			if (flags->num > 5)
+			ft_zero(flags->num - 5, ' ', len);
+			return (1);
+		}
+		if (flags->num > 5)
+			ft_zero(flags->num - 5, ' ', len);
 		ft_putstr_fd("(nil)", 1);
 		(*len) += 5;
 		return (1);
 	}
 	num = (unsigned long long)p;
-	ft_putstr_fd("0x", 1);
+	//ft_putstr_fd("0x", 1);
 	(*len) += 2;
-	ft_long("0123456789abcdef", num, len);
-	flags->num = 1;
-	return (flags->num);
+	ft_flags_pointer(flags, num, "0123456789abcdef", len);
+	//ft_long("0123456789abcdef", num, len);
+	//flags->num = 1;
+	return (1);
 }
 
 int	ft_printinteger(va_list list, int *len, t_flags *flags)
