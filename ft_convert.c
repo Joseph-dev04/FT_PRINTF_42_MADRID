@@ -6,247 +6,343 @@
 /*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 13:40:28 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/06 13:30:49 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/05 12:05:52 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printstring(va_list list, int *len, t_flags *flags)
-{
-	char	*src;
+int	ft_printstring(va_list ap, int *len, t_flags *f)
+{char    *str;
+    int     str_len;
+    int     print_len;
+    int     padding;
 
-	src = va_arg(list, char *);
-	if (!src)
-	{
-		if ((flags->num && flags->point) && !flags->num_dot)
-		{
-			ft_zero(flags->num, ' ', len);
-			return (1);
-		}
-		else if ((flags->num && flags->point) && (flags->num_dot < 6 && flags->num > flags->num_dot))
-		{
-			ft_zero(flags->num, ' ', len);
-			return (1);
-		}
-		else if ((flags->num && flags->point) && (flags->num_dot >=6 && flags->num > flags->num_dot))
-		{
-			flags->num -= 6;
-			if (flags->minus)
-			{
-				ft_putstr_fd("(null)", 1);
-				ft_zero(flags->num, ' ', len);
-			}else
-			{
-				ft_zero(flags->num, ' ', len);
-				ft_putstr_fd("(null)", 1);
-			}
-			(*len) += 6;
-			return (1);
-		}
-		flags->num -= 6;
-		ft_flags_caracters(flags, src, len);
-		return (1);
-	}
-	if ((!flags->minus && flags->num_dot ) && flags->num_dot < (int)ft_strlen(src))
-	{
-		flags->num -= flags->num_dot;
-	}
-	else if ((flags->minus && flags->num_dot ) && flags->num_dot < (int)ft_strlen(src))
-	{
-		flags->num -= flags->num_dot;
-	}
-	else if ((flags->num && flags->point) && !flags->num_dot)
-	{
-		ft_zero(flags->num, ' ', len);
-		return (1);
-	}
-	else if ((flags->point && flags->minus) && (flags->num_dot == 0 && flags->num == flags->num_dot))
-	{
-		return (1);
-	}
-	else
-		flags->num -= ft_strlen(src);
-	ft_flags_caracters(flags, src, len);
-	//(*len) += ft_strlen(src);
-	return (1);
+    str = va_arg(ap, char *);
+
+    if (!str)
+        str = "(null)";
+
+    str_len = ft_strlen(str);
+
+    if (f->point)
+    {
+        if (f->num_dot == 0)
+            print_len = 0;
+        else if (f->num_dot < str_len)
+            print_len = f->num_dot;
+        else
+            print_len = str_len;
+    }
+    else
+        print_len = str_len;
+
+    padding = 0;
+    if (f->num > print_len)
+        padding = f->num - print_len;
+
+    if (!f->minus)
+        print_padding(padding, ' ', len);
+
+    if (print_len > 0)
+    {
+        write(1, str, print_len);
+        (*len) += print_len;
+    }
+
+    if (f->minus)
+        print_padding(padding, ' ', len);
+
+    return (1);
 }
 
-int	ft_printchar(va_list list, int *len, t_flags *flags)
+int	ft_printchar(va_list ap, int *len, t_flags *f)
 {
-	char	c;
+	char    c;
+    int     padding;
 
-	c = va_arg(list, int);
-	ft_flags_trings(flags, c, len);
-	//(*len)++;
-	return (1);
+    c = (char)va_arg(ap, int);
+
+    padding = 0;
+    if (f->num > 1)
+        padding = f->num - 1;
+
+    if (!f->minus)
+    {
+        if (f->zero)
+            print_padding(padding, '0', len);
+        else
+            print_padding(padding, ' ', len);
+    }
+
+    write(1, &c, 1);
+    (*len)++;
+
+    if (f->minus)
+        print_padding(padding, ' ', len);
+
+    return (1);
 }
 
-int	ft_lenpoint(unsigned long long num)
+static int	ft_numlen_base_ull(unsigned long long n, int base_len)
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	while (num)
+	len = 1;
+	while (n >= (unsigned long long)base_len)
 	{
-		num /= 16;
-		i++;
+		n /= base_len;
+		len++;
 	}
-	return (i);
-}
-#include <stdio.h>
-void	ft_flags_pointer(t_flags *flags, unsigned long long i, char *str, int *len)
-{
-	if (flags->minus)
-	{
-		ft_putstr_fd("0x", 1);
-		if (flags->num > flags->num_dot && flags->num_dot > ft_lenpoint(i))
-		{
-
-			ft_zero(flags->num_dot - ft_lenpoint(i), '0', len);
-			ft_long(str, i, len);
-			ft_zero(flags->num - (flags->num_dot - ft_lenpoint(i)), ' ', len);
-		}
-		else if (flags->num < flags->num_dot && flags->num_dot > ft_lenpoint(i))
-		{
-			ft_zero(flags->num_dot - ft_lenpoint(i), '0', len);
-			ft_long(str, i, len);
-		}
-		else if (flags->num > flags->num_dot && flags->num_dot == ft_lenpoint(i))
-		{
-			ft_zero(flags->num, ' ', len);
-		}
-		else if (flags->zero == 0)
-		{
-			ft_long(str, i, len);
-			if (i == 0)
-				flags->num--;
-			ft_zero(flags->num - (ft_lenpoint(i) + 2), ' ', len);
-		}
-	}
-	else if(flags->point)
-	{
-		if (flags->num_dot > ft_lenpoint(i) && flags->num_dot > flags->num)
-		{
-
-			ft_zero(flags->num_dot - ft_lenpoint(i), '0', len);
-			ft_long(str, i, len);
-		
-		}
-		else if (flags->num > flags->num_dot)
-		{
-			if (flags->num_dot < ft_lenpoint(i))
-			{
-				ft_zero(flags->num, ' ', len);
-				ft_long(str, i, len);
-			}
-			else
-			{
-				ft_zero(flags->num - (flags->num_dot - ft_lenpoint(i)), ' ', len);
-				ft_zero(flags->num_dot - ft_lenhexa(i), '0', len);
-				ft_long(str, i, len);
-			}
-		}
-		else
-		{
-			ft_putstr_fd("0x", 1);
-			ft_long(str, i, len);
-		}
-	}
-	else if (flags->zero)
-	{
-		if (i == 0)
-		{
-			ft_zero(flags->num, '0', len);
-		}
-		else
-		{
-			ft_zero(flags->num, '0', len);
-			ft_long(str, i, len);
-		}
-	}
-	else
-	{
-		if (flags->num)
-		{
-			//printf("*%i*",flags->num);
-				ft_zero(flags->num - (ft_lenpoint(i) + 2), ' ', len);
-				ft_putstr_fd("0x", 1);
-				ft_long(str, i, len);
-		}
-		else
-		{
-			ft_zero(flags->num, ' ', len);
-			ft_putstr_fd("0x", 1);
-			ft_long(str, i, len);
-		}
-	}
+	return (len);
 }
 
-
-int	ft_printpointer(va_list list, int *len, t_flags *flags)
+char	*ft_utoa_base_ull(unsigned long long n, char *base)
 {
-	void				*p;
-	unsigned long long	num;
+	char	*result;
+	int		base_len;
+	int		len;
 
-	p = va_arg(list, void *);
-	if (!p)
+	base_len = 0;
+	while (base[base_len])
+		base_len++;
+
+	len = ft_numlen_base_ull(n, base_len);
+
+	result = malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (NULL);
+
+	result[len] = '\0';
+
+	if (n == 0)
 	{
-		if (flags->minus)
-		{
-			ft_putstr_fd("(nil)", 1);
-			(*len) += 5;
-			if (flags->num > 5)
-			ft_zero(flags->num - 5, ' ', len);
-			return (1);
-		}
-		if (flags->num > 5)
-			ft_zero(flags->num - 5, ' ', len);
-		ft_putstr_fd("(nil)", 1);
-		(*len) += 5;
-		return (1);
+		result[0] = base[0];
+		return (result);
 	}
-	num = (unsigned long long)p;
-	//ft_putstr_fd("0x", 1);
-	(*len) += 2;
-	ft_flags_pointer(flags, num, "0123456789abcdef", len);
-	//ft_long("0123456789abcdef", num, len);
-	//flags->num = 1;
-	return (1);
+
+	while (n > 0)
+	{
+		result[--len] = base[n % base_len];
+		n /= base_len;
+	}
+	return (result);
 }
 
-int	ft_printinteger(va_list list, int *len, t_flags *flags)
+int	ft_printpointer(va_list ap, int *len, t_flags *f)
 {
-	int		i;
-	char	*str;
-	int		lenstr;
+	void                    *ptr;
+    unsigned long long      addr;
+    char                    *num_str;
+    int                     num_len;
+    int                     total_len;
+    int                     padding;
 
-	i = va_arg(list, int);
-	str = ft_itoa(i);
-	lenstr = ft_strlen(str);
-	if (flags->plus && i >= 0)
-		lenstr++;
-	(*len) += lenstr;
-	if (i != 0)
-		flags->num -= lenstr;
-	if ((flags->plus && i >= 0) && (flags->num == 0 || flags->minus))
-		ft_putchar_fd('+', 1);
-	ft_flags_int(flags, str, len, i);
-	free(str);
-	return (1);
+    ptr = va_arg(ap, void *);
+
+    // 🔹 Caso NULL
+    if (!ptr)
+    {
+        int nil_len = 5; // "(nil)"
+        padding = 0;
+
+        if (f->num > nil_len)
+            padding = f->num - nil_len;
+
+        if (!f->minus)
+            print_padding(padding, ' ', len);
+
+        write(1, "(nil)", 5);
+        (*len) += 5;
+
+        if (f->minus)
+            print_padding(padding, ' ', len);
+
+        return (1);
+    }
+
+    // 🔹 Dirección válida
+    addr = (unsigned long long)ptr;
+    num_str = ft_utoa_base_ull(addr, "0123456789abcdef");
+    num_len = ft_strlen(num_str);
+
+    total_len = num_len + 2; // 2 por "0x"
+
+    padding = 0;
+    if (f->num > total_len)
+        padding = f->num - total_len;
+
+    // 🔹 PRINT
+
+    if (!f->minus)
+    {
+        if (f->zero && !f->point)
+        {
+            // prefijo antes de ceros
+            write(1, "0x", 2);
+            (*len) += 2;
+            print_padding(padding, '0', len);
+        }
+        else
+            print_padding(padding, ' ', len);
+    }
+
+    // prefijo si no se imprimió antes
+    if (!(f->zero && !f->point && !f->minus))
+    {
+        write(1, "0x", 2);
+        (*len) += 2;
+    }
+
+    write(1, num_str, num_len);
+    (*len) += num_len;
+
+    if (f->minus)
+        print_padding(padding, ' ', len);
+
+    free(num_str);
+    return (1);
 }
 
-int	ft_printunsigned(va_list list, int *len, t_flags *flags)
+void print_padding(int n, char c, int *len)
 {
-	unsigned int	i;
-	char			*str;
+    while (n-- > 0)
+    {
+        write(1, &c, 1);
+        (*len)++;
+    }
+}
+int ft_printinteger(va_list ap, int *len, t_flags *f)
+{
+    int     n;
+    long    nb;
+    char    *num_str;
+    int     is_negative;
+    int     num_len;
+    int     precision_zeros;
+    int     total_len;
+    int     padding;
+    char    sign;
 
-	i = va_arg(list, unsigned int);
-	str = ft_utoa(i);
-	(*len) += ft_strlen(str);
-	if (flags->num)
-		flags->num -= ft_strlen(str);
-	ft_flags_unint(flags, str, len, i);
-	free(str);
-	return (1);
+    n = va_arg(ap, int);
+    nb = n;
+
+    is_negative = (nb < 0);
+    sign = 0;
+
+    if (is_negative)
+    {
+        sign = '-';
+        nb = -nb;
+    }
+    else if (f->plus)
+        sign = '+';
+
+    num_str = ft_utoa_base((unsigned int)nb, "0123456789");
+    num_len = ft_strlen(num_str);
+
+    if (f->point && f->num_dot == 0 && n == 0)
+        num_len = 0;
+
+    precision_zeros = 0;
+    if (f->point && f->num_dot > num_len)
+        precision_zeros = f->num_dot - num_len;
+
+    total_len = num_len + precision_zeros;
+    if (sign)
+        total_len++;
+
+    padding = 0;
+    if (f->num > total_len)
+        padding = f->num - total_len;
+
+    if (!f->minus)
+    {
+        if (f->zero && !f->point)
+        {
+            if (sign)
+            {
+                write(1, &sign, 1);
+                (*len)++;
+                sign = 0;
+            }
+            print_padding(padding, '0', len);
+        }
+        else
+            print_padding(padding, ' ', len);
+    }
+
+    if (sign)
+    {
+        write(1, &sign, 1);
+        (*len)++;
+    }
+
+    print_padding(precision_zeros, '0', len);
+
+    if (!(f->point && f->num_dot == 0 && n == 0))
+    {
+        write(1, num_str, num_len);
+        (*len) += num_len;
+    }
+
+    if (f->minus)
+        print_padding(padding, ' ', len);
+
+    free(num_str);
+    return (1);
+}
+
+int	ft_printunsigned(va_list ap, int *len, t_flags *f)
+{
+	unsigned int    n;
+    char            *num_str;
+    int             num_len;
+    int             precision_zeros;
+    int             total_len;
+    int             padding;
+
+    n = va_arg(ap, unsigned int);
+    num_str = ft_utoa(n);
+    num_len = ft_strlen(num_str);
+
+    // 🔹 Regla especial: 0 con precision 0
+    if (f->point && f->num_dot == 0 && n == 0)
+        num_len = 0;
+
+    // 🔹 PRECISION
+    precision_zeros = 0;
+    if (f->point && f->num_dot > num_len)
+        precision_zeros = f->num_dot - num_len;
+
+    total_len = num_len + precision_zeros;
+
+    // 🔹 WIDTH
+    padding = 0;
+    if (f->num > total_len)
+        padding = f->num - total_len;
+
+    // 🔹 PRINT
+
+    if (!f->minus)
+    {
+        if (f->zero && !f->point)
+            print_padding(padding, '0', len);
+        else
+            print_padding(padding, ' ', len);
+    }
+
+    print_padding(precision_zeros, '0', len);
+
+    if (!(f->point && f->num_dot == 0 && n == 0))
+    {
+        write(1, num_str, num_len);
+        (*len) += num_len;
+    }
+
+    if (f->minus)
+        print_padding(padding, ' ', len);
+
+    free(num_str);
+    return (1);
 }

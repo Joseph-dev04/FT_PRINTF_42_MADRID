@@ -38,8 +38,8 @@ int		ft_printchar(va_list list, int *i, t_flags *flags);
 int		ft_printpointer(va_list list, int *i, t_flags *flags);
 int		ft_printinteger(va_list list, int *len, t_flags *flags);
 int		ft_printunsigned(va_list list, int *len, t_flags *flags);
-int		ft_printhexa(va_list list, char c, int *i, t_flags *flags);
-
+int ft_printhexa(va_list ap,char uppercase, int *len , t_flags *f);
+char	*ft_utoa_base(unsigned int n, char *base);
 void	ft_zero(int num, char c, int *i);
 void	ft_hexa(char *str, unsigned int i, int *len);
 int		ft_lenhexa(int num);
@@ -53,7 +53,8 @@ void	ft_flags_hexa(t_flags *flags, unsigned int i, char *str, int *len);
 
 char	*ft_utoa(unsigned int n);
 void	ft_check_num(char **str, int len);
-int		ft_printhexa(va_list list, char c, int *i, t_flags *flags);
+
 
 void	ft_init_struct(t_flags *flags);
+void print_padding(int n, char c, int *len);
 #endif

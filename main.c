@@ -1,8 +1,7 @@
 #include "ft_printf.h"
 #include <stddef.h>
 #include <stdio.h>
-//937 1
-
+//869 69
 int main()
 {
 	int a = 10;
@@ -15,33 +14,34 @@ int main()
 		printf("%p hola \"original\"\n", p);
 	}*/
 	//ft_printf("%s %c %i %x %X ", "hola", 'd', 10, 20, 10);
-	a = ft_printf(" %-2u ", -1);
+	a = ft_printf("% d", 0);
 	
 	   printf("%i\n", a);
 
-	   a = printf(" %-2u ", -1);
+	   a = printf("% d", 0);
 	
 	   printf("%i", a);
 	return (0);
 }
 /*
-149:    TEST(118, print(" %-3x ", 1));
-161:    TEST(130, print(" %-3x ", -11));
-162:    TEST(131, print(" %-4x ", -14));
-163:    TEST(132, print(" %-5x ", -15));
-164:    TEST(133, print(" %-6x ", -16));
-165:    TEST(134, print(" %-1x ", -99));
-168:    TEST(137, print(" %-9x ", INT_MAX));
-171:    TEST(140, print(" %-12x ", LONG_MIN));
-173:    TEST(142, print(" %-14x ", ULONG_MAX));
-174:    TEST(143, print(" %-15x ", 9223372036854775807LL));
-175:    TEST(144, print(" %-9x %-10x %-11x %-12x %-13x %-14x %-15x", 
-INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
-177:    TEST(145, print(" %-1X ", 0));
-179:    TEST(147, print(" %-3X ", 1));
-191:    TEST(159, print(" %-3X ", -11));
-192:    TEST(160, print(" %-4X ", -14));
-193:    TEST(161, print(" %-5X ", -15));
-194:    TEST(162, print(" %-6X ", -16));
-195:    TEST(163, print(" %-1X ", -99));
-198:    TEST(166, print(" %-9X ", INT_MAX));*/
+  TEST(10, print(" % d ", 0));
+37:     TEST(12, print(" % d ", 1));
+38:     TEST(13, print(" % d ", 9));
+39:     TEST(14, print(" % d ", 10));
+40:     TEST(15, print(" % d ", 11));
+41:     TEST(16, print(" % d ", 15));
+42:     TEST(17, print(" % d ", 16));
+43:     TEST(18, print(" % d ", 17));
+44:     TEST(19, print(" % d ", 99));
+45:     TEST(20, print(" % d ", 100));
+46:     TEST(21, print(" % d ", 101));
+56:     TEST(31, print(" % d ", INT_MAX));
+59:     TEST(34, print(" % d ", LONG_MIN));
+63:     TEST(38, print(" % d % d % d % d % d % d % d", INT_MAX, INT_MIN, 
+LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+65:     TEST(39, print(" % i ", 0));
+67:     TEST(41, print(" % i ", 1));
+68:     TEST(42, print(" % i ", 9));
+69:     TEST(43, print(" % i ", 10));
+70:     TEST(44, print(" % i ", 11));
+*/
