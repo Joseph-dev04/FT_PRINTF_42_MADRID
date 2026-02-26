@@ -60,7 +60,6 @@ void	ft_check_num(char **str, int len)
 	}
 }
 
-
 static int	ft_numlen_base(unsigned int n, int base_len)
 {
 	int	len;

@@ -26,7 +26,25 @@ typedef struct s_flags
 	int	num_dot;
 	int	zero;
 	int iter;
+	int space;
 }	t_flags;
+
+typedef struct s_d
+{
+	long	nb;
+	char	sign;
+	int		num_len;
+	int		zeros;
+	int		padding;
+}	t_d;
+
+typedef struct s_u
+{
+	unsigned int	nb;
+	int				num_len;
+	int				zeros;
+	int				padding;
+}	t_u;
 
 int		ft_printf(char	const *str, ...);
 int		ft_detec_plus(char const *str, int *i, va_list list, t_flags *flags);

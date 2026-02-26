@@ -24,6 +24,8 @@ void	ft_detec_flags(char const *str, t_flags *flags)
 		flags->plus = 1;
 	else if (*str == '#')
 		flags->hash = 1;
+	else if (*str == ' ')
+		flags->space = 1;
 	if (flags->point && (*str >= '0' && *str <= '9'))
 	{
 		flags->num_dot = flags->num_dot * 10 + (*str - '0');

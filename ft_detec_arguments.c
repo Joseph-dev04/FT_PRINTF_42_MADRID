@@ -45,6 +45,7 @@ void	ft_init_struct(t_flags *flags)
 	flags->zero = 0;
 	flags->point = 0;
 	flags->iter = 0;
+	flags->space = 0;
 }
 /*
 void	ft_show_struct(t_flags *flags)
