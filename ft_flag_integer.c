@@ -75,7 +75,7 @@ static void	ft_d_print_left(t_d *d, t_flags *f, int *len)
 	}
 }
 
-int	ft_printinteger(va_list ap, int *len,t_flags *f)
+int	ft_printinteger(va_list ap, int *len, t_flags *f)
 {
 	t_d		d;
 	int		n;

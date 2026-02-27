@@ -19,7 +19,8 @@ LIBFT_DIR = ./libft
 LIBFT = ${LIBFT_DIR}/libft.a
 
 SRC = ft_convert_plus.c ft_convert.c ft_detec_arguments.c ft_detec_flags.c ft_printf.c\
-		ft_convert_flags.c ft_utils.c
+		ft_flag_hexa.c ft_flag_integer.c ft_flag_unsigned.c ft_utils_bonus.c\
+		ft_flag_pointer.c
 
 OBJ = $(SRC:.c=.o)
 

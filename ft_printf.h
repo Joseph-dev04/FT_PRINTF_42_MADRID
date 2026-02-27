@@ -46,6 +46,23 @@ typedef struct s_u
 	int				padding;
 }	t_u;
 
+typedef struct s_x
+{
+	unsigned int	nb;
+	int				num_len;
+	int				zeros;
+	int				padding;
+	int				prefix;
+}	t_x;
+
+typedef struct s_p
+{
+	unsigned long	nb;
+	int				num_len;
+	int				zeros;
+	int				padding;
+}	t_p;
+
 int		ft_printf(char	const *str, ...);
 int		ft_detec_plus(char const *str, int *i, va_list list, t_flags *flags);
 void	ft_detec_args(char const **str, int *i, va_list list, t_flags *flags);
@@ -56,24 +73,13 @@ int		ft_printchar(va_list list, int *i, t_flags *flags);
 int		ft_printpointer(va_list list, int *i, t_flags *flags);
 int		ft_printinteger(va_list list, int *len, t_flags *flags);
 int		ft_printunsigned(va_list list, int *len, t_flags *flags);
-int		ft_printhexa(va_list ap, char uppercase, int *len, t_flags *f);
-char	*ft_utoa_base(unsigned int n, char *base);
-void	ft_zero(int num, char c, int *i);
-void	ft_hexa(char *str, unsigned int i, int *len);
-int		ft_lenhexa(int num);
-void	ft_long(char *str, unsigned long long i, int *len);
-
-void	ft_flags_caracters(t_flags *flags, char *src, int *i);
-void	ft_flags_trings(t_flags *flags, char c, int *i);
-void	ft_flags_unint(t_flags *flags, char *str, int *i, int len);
-void	ft_flags_hexa(t_flags *flags, unsigned int i, char *str, int *len);
-
-char	*ft_utoa(unsigned int n);
-void	ft_check_num(char **str, int len);
-
+int		ft_printhexa(va_list ap, char upper, int *len, t_flags *f);
 
 void	ft_init_struct(t_flags *flags);
 void	print_padding(int n, char c, int *len);
 void	ft_putchar_len(char c, int *len);
 void	ft_putnbr_unsigned_len(unsigned long n, int *len);
+int		ft_numlen_base(unsigned long n, int base);
+int		ft_numlen_base_int(unsigned int n, int base);
+void	ft_putnbr_base_len(unsigned long n, char *base, int *len);
 #endif
