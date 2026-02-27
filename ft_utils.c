@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopajuel <jopajuel@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 11:34:19 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 11:40:14 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/27 11:18:49 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int ft_printhexa(va_list ap,char uppercase, int *len , t_flags *f)
 
     n = va_arg(ap, unsigned int);
 
-	if ( uppercase == 'x')
+	if (uppercase == 'x')
 		base = "0123456789abcdef";
 	else if (uppercase == 'X')
 		base = "0123456789ABCDEF";

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_detec_arguments.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopajuel <jopajuel@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:43:13 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 16:38:39 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/27 10:15:27 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,6 @@ void	ft_init_struct(t_flags *flags)
 	flags->iter = 0;
 	flags->space = 0;
 }
-/*
-void	ft_show_struct(t_flags *flags)
-{
-	printf("\nzero:%i\n",flags->zero);
-	printf("minus:%i\n",flags->minus);
-	printf("plus:%i\n",flags->plus);
-	printf("num:%i\n",flags->num);
-	printf("num_dot:%i\n",flags->num_dot);
-	printf("point:%i\n",flags->point);
-	printf("hash:%i\n",flags->hash);
-}*/
 
 void	ft_detec_args(char const **str, int *i, va_list list, t_flags *flags)
 {
@@ -67,6 +56,4 @@ void	ft_detec_args(char const **str, int *i, va_list list, t_flags *flags)
 		ft_detec_flags(*str, flags);
 		(*str)++;
 	}
-	//descomentar para el parseo
-	//ft_show_struct(*flags);
 }

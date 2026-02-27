@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopajuel <jopajuel@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 12:23:25 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/02/04 16:38:24 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/02/27 11:17:10 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_flags
 	int	num;
 	int	num_dot;
 	int	zero;
-	int iter;
-	int space;
+	int	iter;
+	int	space;
 }	t_flags;
 
 typedef struct s_d
@@ -56,7 +56,7 @@ int		ft_printchar(va_list list, int *i, t_flags *flags);
 int		ft_printpointer(va_list list, int *i, t_flags *flags);
 int		ft_printinteger(va_list list, int *len, t_flags *flags);
 int		ft_printunsigned(va_list list, int *len, t_flags *flags);
-int ft_printhexa(va_list ap,char uppercase, int *len , t_flags *f);
+int		ft_printhexa(va_list ap, char uppercase, int *len, t_flags *f);
 char	*ft_utoa_base(unsigned int n, char *base);
 void	ft_zero(int num, char c, int *i);
 void	ft_hexa(char *str, unsigned int i, int *len);
@@ -65,7 +65,6 @@ void	ft_long(char *str, unsigned long long i, int *len);
 
 void	ft_flags_caracters(t_flags *flags, char *src, int *i);
 void	ft_flags_trings(t_flags *flags, char c, int *i);
-void	ft_flags_int(t_flags *flags, char *str, int *i, int len);
 void	ft_flags_unint(t_flags *flags, char *str, int *i, int len);
 void	ft_flags_hexa(t_flags *flags, unsigned int i, char *str, int *len);
 
@@ -74,5 +73,7 @@ void	ft_check_num(char **str, int len);
 
 
 void	ft_init_struct(t_flags *flags);
-void print_padding(int n, char c, int *len);
+void	print_padding(int n, char c, int *len);
+void	ft_putchar_len(char c, int *len);
+void	ft_putnbr_unsigned_len(unsigned long n, int *len);
 #endif
