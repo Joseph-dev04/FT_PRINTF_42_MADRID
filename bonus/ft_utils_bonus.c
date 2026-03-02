@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_utils_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:28:11 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/03/02 12:55:23 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/03/02 11:04:05 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-void	ft_putnbr_base_len(unsigned long n, char *base, int *len)
-{
-	if (n >= 16)
-		ft_putnbr_base_len(n / 16, base, len);
-	ft_putchar_len(base[n % 16], len);
-}
-
-int	ft_printhexa(va_list ap, char upper, int *len)
-{
-	unsigned int	nb;
-	char			*base;
-
-	nb = va_arg(ap, unsigned int);
-	if (upper == 'X')
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	ft_putnbr_base_len(nb, base, len);
-	return (1);
-}
+#include "ft_printf_bonus.h"
 
 void	ft_putchar_len(char c, int *len)
 {

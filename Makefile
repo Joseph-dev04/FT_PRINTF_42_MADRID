@@ -3,49 +3,71 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jopajuel <jopajuel@student.42.fr>          +#+  +:+       +#+         #
+#    By: jopajuel <jopajuel@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/02/02 14:49:06 by jopajuel          #+#    #+#              #
-#    Updated: 2026/02/04 16:07:38 by jopajuel         ###   ########.fr        #
+#    Created: 2026/03/02 13:26:23 by jopajuel          #+#    #+#              #
+#    Updated: 2026/03/02 13:27:24 by jopajuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME        = libftprintf.a
+CC          = cc
+FLAGS       = -Wall -Werror -Wextra
+AR          = ar rcs
 
-AR = ar rcs
+LIBFT_DIR   = ./libft
+LIBFT       = $(LIBFT_DIR)/libft.a
+DIR_BONUS   = bonus
 
-LIBFT_DIR = ./libft
+SRC         = ft_convert_plus.c ft_detec_arguments.c ft_printf.c \
+              ft_utils.c ft_basic.c
+SRC_BONUS   = $(DIR_BONUS)/ft_convert_plus_bonus.c \
+              $(DIR_BONUS)/ft_convert_bonus.c \
+              $(DIR_BONUS)/ft_detec_arguments_bonus.c \
+              $(DIR_BONUS)/ft_detec_flags_bonus.c \
+              $(DIR_BONUS)/ft_printf_bonus.c \
+              $(DIR_BONUS)/ft_flag_hexa_bonus.c \
+              $(DIR_BONUS)/ft_flag_integer_bonus.c \
+              $(DIR_BONUS)/ft_flag_unsigned_bonus.c \
+              $(DIR_BONUS)/ft_utils_bonus.c \
+              $(DIR_BONUS)/ft_flag_pointer_bonus.c
 
-LIBFT = ${LIBFT_DIR}/libft.a
+OBJ         = $(SRC:.c=.o)
+OBJ_BONUS   = $(SRC_BONUS:.c=.o)
 
-SRC = ft_convert_plus.c ft_convert.c ft_detec_arguments.c ft_detec_flags.c ft_printf.c\
-		ft_flag_hexa.c ft_flag_integer.c ft_flag_unsigned.c ft_utils_bonus.c\
-		ft_flag_pointer.c
+STATUS_ALL   = .status_all
+STATUS_BONUS = .status_bonus
 
-OBJ = $(SRC:.c=.o)
+all: $(NAME)
 
-FLAGS = -Wall -Werror -Wextra
+$(NAME): $(OBJ) $(LIBFT)
+	@rm -f $(STATUS_BONUS)
+	@cp $(LIBFT) $(NAME)
+	@$(AR) $(NAME) $(OBJ)
+	@touch $(STATUS_ALL)
+	@echo "ft_printf: Mandatory compiled."
 
-CC = cc
+bonus: $(OBJ_BONUS) $(LIBFT)
+	@rm -f $(STATUS_ALL)
+	@cp $(LIBFT) $(NAME)
+	@$(AR) $(NAME) $(OBJ_BONUS)
+	@touch $(STATUS_BONUS)
+	@echo "ft_printf: Bonus compiled."
 
-all		: ${NAME}
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
 
-${NAME}	: ${LIBFT} ${OBJ}
-		@cp ${LIBFT} ${NAME}
-		@${AR} ${NAME} ${OBJ}
+%.o: %.c
+	@$(CC) $(FLAGS) -c $< -o $@
 
-${LIBFT}: 
-		 @make -C ${LIBFT_DIR}
+clean:
+	@rm -f $(OBJ) $(OBJ_BONUS) $(STATUS_ALL) $(STATUS_BONUS)
+	@make -C $(LIBFT_DIR) clean
 
-%.o		: %.c
-		@${CC} ${FLAGS} -c $< -o $@
-			
-clean	: 
-		 @rm -f ${OBJ}
-		 @make -C ${LIBFT_DIR} clean
+fclean: clean
+	@rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean
 
-fclean	: clean
-		 @rm -f ${NAME}
+re: fclean all
 
-bonus: all
-re		: fclean all
+.PHONY: all bonus clean fclean re

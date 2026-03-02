@@ -1,44 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert_plus.c                                  :+:      :+:    :+:   */
+/*   ft_convert_plus_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopajuel <jopajuel@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 09:46:03 by jopajuel          #+#    #+#             */
-/*   Updated: 2026/03/02 12:55:55 by jopajuel         ###   ########.fr       */
+/*   Updated: 2026/03/02 12:58:01 by jopajuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_printstring(va_list list, int *len)
+void	ft_case_null(t_flags *f, int print_len)
 {
-	char	*src;
-	int		i;
-
-	i = 0;
-	src = va_arg(list, char *);
-	if (!src)
-	{
-		write (1, "(null)", 6);
-		(*len) += 6;
-		return (0);
-	}
-	while (src[i])
-	{
-		ft_putchar_fd(src[i], 1);
-		i++;
-	}
-	(*len) += i;
-	return (0);
-}
-
-int	ft_printchar(va_list list, int *len)
-{
-	ft_putchar_fd(va_arg(list, int), 1);
-	(*len)++;
-	return (0);
+	if (f->point && f->num_dot > 5)
+		write(1, "(null)", 6);
+	else if (!f->point)
+		write(1, "(null)", 6);
+	else
+		write(1, " ", print_len);
 }
 
 void	print_padding(int n, char c, int *len)
